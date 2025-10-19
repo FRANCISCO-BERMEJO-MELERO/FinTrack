@@ -36,7 +36,7 @@ export default function IngresosGastos({ ingresos, gastos, balance}) {
     <div className="flex gap-4 ">
       {
         cards.map((card, index) => (
-          <div key={index} className={`flex flex-col gap-2 border border-neutral-500 rounded-2xl p-4 w-full text-gray-500`}>
+          <div key={index} className={`flex flex-col gap-2 border border-neutral-500 rounded-2xl p-4 w-full text-neutral-400`}>
             <div className='flex justify-between items-center'>
               <h2>{card.titulo}</h2>
               {
@@ -45,7 +45,7 @@ export default function IngresosGastos({ ingresos, gastos, balance}) {
             </div>
             <span   
             style={{color: card.titulo === 'Balance' ? 'dodgerblue' : card.cantidad < 0 ? 'red' : 'green'}}>
-              {card.cantidad}€
+              {typeof card.cantidad === 'number' ? card.cantidad.toFixed(2) + '€' : '--'}
             </span>
           </div>
         ))

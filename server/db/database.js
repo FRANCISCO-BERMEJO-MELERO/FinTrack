@@ -17,7 +17,7 @@ db.exec(`
     CREATE TABLE IF NOT EXISTS transacciones (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         tipo_id INTEGER NOT NULL,
-        cantidad REAL NOT NULL,
+        cantidad INTEGER NOT NULL,
         categoria_id INTEGER NOT NULL,
         fecha TEXT NOT NULL,
         descripcion TEXT,

@@ -14,8 +14,8 @@ router.post("/", (req, res) => {
     const id = uuidv4();
     const createdAt = new Date().toISOString();
     const updatedAt = createdAt;
-    db.prepare("INSERT INTO categorias (id, name, createdAt, updatedAt) VALUES (?, ?, ?, ?)")
-        .run(id, name, createdAt, updatedAt);
+    db.prepare("INSERT INTO categorias (name, createdAt, updatedAt) VALUES (?, ?, ?)")
+        .run(name, createdAt, updatedAt);
     res.send({ id });
 });
 
