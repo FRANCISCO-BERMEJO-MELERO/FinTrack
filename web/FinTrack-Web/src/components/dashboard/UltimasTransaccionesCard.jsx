@@ -4,7 +4,7 @@ import { TrendingUp, TrendingDown, Wallet } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 
-export default function HistorialCard({ transacciones }) {
+export default function HistorialCard({ transacciones, setPage }) {
 
   const [categorias, setCategorias] = useState([]);
 
@@ -22,7 +22,7 @@ export default function HistorialCard({ transacciones }) {
           <History className="h-5 w-5 text-neutral-600" />
           <h2 className="text-sm text-neutral-400">Últimas transacciones</h2>
         </div>
-        <button className='flex items-center gap-2 hover:bg-neutral-700/50 text-white py-1 px-2 rounded-xl transition-all duration-500 hover:cursor-pointer'>
+        <button className='flex items-center gap-2 hover:bg-neutral-700/50 text-white py-1 px-2 rounded-xl transition-all duration-500 hover:cursor-pointer' onClick={ () => setPage("nueva") } >
           <Plus className="h-5 w-5 text-neutral-600" />
           Añadir
         </button>
