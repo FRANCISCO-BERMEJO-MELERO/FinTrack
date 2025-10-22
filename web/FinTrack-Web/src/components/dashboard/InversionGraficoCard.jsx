@@ -3,32 +3,33 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recha
 import { PieChart as PieChartIcon } from 'lucide-react';
 
 const CATEGORY_COLORS = {
-    'Comida': '#EF4444',
-    'Transporte': '#F59E0B',
-    'Compras': '#6366F1',
-    'Entretenimiento': '#EC4899',
-    'Salud': '#10B981',
-    'Educacion': '#3B82F6',
-    'Servicios': '#14B8A6',
+    'Criptomonedas': '#EF4444',
+    'Bonos': '#F59E0B',
+    'Fundos': '#6366F1',
+    'Propiedades': '#10B981',
+    'Acciones': '#3B82F6',
+    'ETF': '#EC4899',
     'Otros': '#6B7280',
 };
 
-export default function GastosGraficoCard({ gastos }) {
+
+export default function InversionGraficoCard({ inversiones }) {
+
     // Convertir objeto a array si es necesario
     let data = [];
 
-    if (Array.isArray(gastos)) {
+    if (Array.isArray(inversiones)) {
         // Si es un array
-        data = gastos.map((item, index) => {
+        data = inversiones.map((item, index) => {
             if (typeof item === 'number') {
                 return { name: `Item ${index + 1}`, value: item };
             }
             return item;
         });
-    } else if (gastos && typeof gastos === 'object') {
+    } else if (inversiones && typeof inversiones === 'object') {
         // Si es un objeto, convertirlo a array de objetos
-        data = Object.entries(gastos).map(([categoria, cantidad]) => ({
-            categoria,
+        data = Object.entries(inversiones).map(([tipo_inversion, cantidad]) => ({
+            tipo_inversion,
             cantidad
         }));
     }
@@ -64,7 +65,7 @@ export default function GastosGraficoCard({ gastos }) {
             <div className='flex items-center gap-2 p-4'>
                 <PieChartIcon className="h-5 w-5 text-neutral-600" />
                 <h2 className="text-sm text-neutral-400" >
-                    Gastos
+                    Inversiones
                 </h2>
             </div>
             {
@@ -82,7 +83,7 @@ export default function GastosGraficoCard({ gastos }) {
                                     dataKey="cantidad"
                                 >
                                     {data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={CATEGORY_COLORS[entry.categoria]} name={entry.categoria} value={entry.cantidad} color={CATEGORY_COLORS[entry.categoria]} />
+                                        <Cell key={`cell-${index}`} fill={CATEGORY_COLORS[entry.tipo_inversion]} name={entry.tipo_inversion} value={entry.cantidad} color={CATEGORY_COLORS[entry.tipo_inversion]} />
                                     ))}
                                 </Pie>
                                 <Tooltip content={<CustomTooltip />} />
@@ -103,7 +104,7 @@ export default function GastosGraficoCard({ gastos }) {
                         <div className="text-center">
                             <PieChartIcon className="h-12 w-12 text-neutral-600 mx-auto mb-2" />
                             <p className="text-sm text-neutral-400">
-                                No hay gastos registrados
+                                No hay inversiones registrados
                             </p>
                         </div>
                     </div>

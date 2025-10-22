@@ -2,7 +2,8 @@ import React from 'react'
 import BalanceCards from "../components/dashboard/BalanceCards"
 import GastosGraficoCard from "../components/dashboard/GastosGraficoCard"
 import UltimasTransaccionesCard from "../components/dashboard/UltimasTransaccionesCard"
-
+import InversionGraficoCard from "../components/dashboard/InversionGraficoCard"
+import DistribuciónInversionCard from "../components/dashboard/DistribuciónInversionCard"
 
 
 import { useEffect, useState, useCallback } from "react"
@@ -10,11 +11,12 @@ import { useEffect, useState, useCallback } from "react"
 export default function Dashboard({setPage}) {
 
     const [transacciones, setTransacciones] = useState([])
+    const [inversiones, setInversiones] = useState([])
     const [categorias, setCategorias] = useState([])
     const [ingresos, setIngresos] = useState();
     const [gastos, setGastos] = useState();
     const [gastosPorCategoria, setGastosPorCategoria] = useState([]);
-
+    const [gastosInversiones, setGastosInversiones] = useState();
 
     // Cargar categorías al montar el componente
     useEffect(() => {
@@ -32,6 +34,14 @@ export default function Dashboard({setPage}) {
             .catch(error => console.error(error))
     }, []);
 
+    // Cargar inversiones
+    useEffect(() => {
+        fetch("http://localhost:3000/transacciones/inversiones")
+            .then(response => response.json())
+            .then(data => setInversiones(data))
+            .catch(error => console.error(error))
+    }, []);
+
     // Funciones de cálculo con useCallback
     const calculateIngresos = useCallback(() => {
         const ingresos = transacciones.filter(t => t.tipo_id === 1).reduce((acc, t) => acc + t.cantidad, 0);
@@ -39,8 +49,13 @@ export default function Dashboard({setPage}) {
     }, [transacciones]);
 
     const calculateGastos = useCallback(() => {
-        const gastos = transacciones.filter(t => t.tipo_id === 2).reduce((acc, t) => acc + t.cantidad, 0);
+        const gastos = transacciones.filter(t => t.tipo_id === 2 ).reduce((acc, t) => acc + t.cantidad, 0);
         setGastos(gastos);
+    }, [transacciones]);
+
+    const calculateGastosInversiones = useCallback(() => {
+        const gastos = transacciones.filter(t => t.tipo_id === 2 && t.es_inversion === 1).reduce((acc, t) => acc + t.cantidad, 0);
+        setGastosInversiones(gastos);
     }, [transacciones]);
 
     const calculateGastosPorCategoria = useCallback(() => {
@@ -73,15 +88,20 @@ export default function Dashboard({setPage}) {
         if (transacciones.length > 0 && categorias.length > 0) {
             calculateIngresos();
             calculateGastos();
+            calculateGastosInversiones();
             calculateGastosPorCategoria();
         }
-    }, [transacciones, categorias, calculateIngresos, calculateGastos, calculateGastosPorCategoria]);
+    }, [transacciones, categorias, calculateIngresos, calculateGastos, calculateGastosPorCategoria, calculateGastosInversiones]);
     return (
         <div className='flex flex-col gap-4'>
-            <BalanceCards ingresos={ingresos} gastos={-gastos} balance={ingresos - gastos} />
+            <BalanceCards ingresos={ingresos} gastos={(-gastos - gastosInversiones)} balance={ingresos - gastos + gastosInversiones} />
             <div className="flex gap-4">
                 <GastosGraficoCard gastos={gastosPorCategoria} />
                 <UltimasTransaccionesCard transacciones={transacciones} setPage={setPage} />
+            </div>
+            <div className="flex gap-4">
+                <InversionGraficoCard inversiones={inversiones}  />
+                <DistribuciónInversionCard inversiones={inversiones} />
             </div>
         </div>
     )

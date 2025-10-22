@@ -21,6 +21,18 @@ db.exec(`
         categoria_id INTEGER NOT NULL,
         fecha TEXT NOT NULL,
         descripcion TEXT,
+
+
+        -- 🔽 Nuevos campos para inversiones
+        es_inversion INTEGER DEFAULT 0,       -- 0 = no, 1 = sí
+        tipo_inversion TEXT,                  -- 'cripto', 'etf', 'bonos', 'acciones', ...
+        plataforma TEXT,                      -- Binance, Degiro, eToro...
+        activo TEXT,                          -- BTC, AAPL, SP500, etc.
+        unidades REAL,                        -- número de acciones o tokens
+        valor_unitario REAL,                  -- precio por unidad en la fecha de compra
+        moneda TEXT DEFAULT 'USD',
+
+
         createdAt TEXT DEFAULT (datetime('now')),
         updatedAt TEXT DEFAULT (datetime('now')),
         FOREIGN KEY (tipo_id) REFERENCES tipos(id),
@@ -37,8 +49,10 @@ db.exec(`
     INSERT INTO categorias (name) VALUES ('Educacion');
     INSERT INTO categorias (name) VALUES ('Servicios');
     INSERT INTO categorias (name) VALUES ('Otros');
+    INSERT INTO categorias (name) VALUES ('Inversiones');
     INSERT INTO tipos (name) VALUES ('Ingreso');
     INSERT INTO tipos (name) VALUES ('Gasto');
+    INSERT INTO tipos (name) VALUES ('Inversion');
 `);
 
 export default db;
