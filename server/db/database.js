@@ -21,8 +21,6 @@ db.exec(`
         categoria_id INTEGER NOT NULL,
         fecha TEXT NOT NULL,
         descripcion TEXT,
-
-
         -- 🔽 Nuevos campos para inversiones
         es_inversion INTEGER DEFAULT 0,       -- 0 = no, 1 = sí
         tipo_inversion TEXT,                  -- 'cripto', 'etf', 'bonos', 'acciones', ...
@@ -31,13 +29,30 @@ db.exec(`
         unidades REAL,                        -- número de acciones o tokens
         valor_unitario REAL,                  -- precio por unidad en la fecha de compra
         moneda TEXT DEFAULT 'USD',
-
-
         createdAt TEXT DEFAULT (datetime('now')),
         updatedAt TEXT DEFAULT (datetime('now')),
         FOREIGN KEY (tipo_id) REFERENCES tipos(id),
         FOREIGN KEY (categoria_id) REFERENCES categorias(id)
     );
+
+
+    CREATE TABLE IF NOT EXISTS gastos_fijos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nombre TEXT NOT NULL,
+        cantidad REAL NOT NULL,
+        categoria_id INTEGER NOT NULL,
+        tipo_id INTEGER NOT NULL,              -- 2 = gasto normalmente
+        fecha_inicio TEXT NOT NULL,
+        descripcion TEXT,
+        frecuencia TEXT DEFAULT 'mensual',     -- mensual, trimestral, anual
+        activo INTEGER DEFAULT 1,              -- 1 = activo, 0 = pausado
+        ultimo_aplicado TEXT,                  -- fecha última generación
+        createdAt TEXT DEFAULT (datetime('now')),
+        updatedAt TEXT DEFAULT (datetime('now')),
+        FOREIGN KEY (categoria_id) REFERENCES categorias(id),
+        FOREIGN KEY (tipo_id) REFERENCES tipos(id)
+    );
+
 `);
 
 db.exec(`

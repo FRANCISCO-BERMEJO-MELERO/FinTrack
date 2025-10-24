@@ -3,6 +3,7 @@ import cors from "cors";
 import transactionsRoutes from "./routes/transacciones.js";
 import typesRoutes from "./routes/tipos.js";
 import categoriesRoutes from "./routes/categorias.js";
+import gastosFijosRoutes from "./routes/gastosFijos.js";
 
 const app = express();
 app.use(cors());
@@ -10,6 +11,7 @@ app.use(express.json());
 app.use("/transacciones", transactionsRoutes);
 app.use("/tipos", typesRoutes);
 app.use("/categorias", categoriesRoutes);
+app.use("/gastosFijos", gastosFijosRoutes);
 app.listen(3000, () => {
     console.log("Server running on port 3000");
 });
