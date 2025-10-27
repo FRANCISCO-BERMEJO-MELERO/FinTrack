@@ -89,9 +89,9 @@ export default function GastosGraficoCard({ gastos }) {
                                 <Legend
                                     verticalAlign="bottom"
                                     height={36}
-                                    formatter={(value) => (
+                                    formatter={(value, entry, index) => (
                                         <span className="text-sm text-neutral-400">
-                                            {value}
+                                            {data[index].categoria}
                                         </span>
                                     )}
                                 />

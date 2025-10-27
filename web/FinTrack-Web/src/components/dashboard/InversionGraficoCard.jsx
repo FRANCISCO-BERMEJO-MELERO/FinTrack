@@ -15,24 +15,20 @@ const CATEGORY_COLORS = {
 
 export default function InversionGraficoCard({ inversiones }) {
 
-    // Convertir objeto a array si es necesario
-    let data = [];
+    // Unir transacciones del mismo activo en un objeto
+    let data = {};
 
-    if (Array.isArray(inversiones)) {
-        // Si es un array
-        data = inversiones.map((item, index) => {
-            if (typeof item === 'number') {
-                return { name: `Item ${index + 1}`, value: item };
-            }
-            return item;
-        });
-    } else if (inversiones && typeof inversiones === 'object') {
-        // Si es un objeto, convertirlo a array de objetos
-        data = Object.entries(inversiones).map(([tipo_inversion, cantidad]) => ({
-            tipo_inversion,
-            cantidad
-        }));
-    }
+    inversiones.forEach((inversion) => {
+        const { tipo_inversion } = inversion;
+        if (data[tipo_inversion]) {
+            data[tipo_inversion].cantidad += inversion.cantidad;
+        } else {
+            data[tipo_inversion] = { tipo_inversion, cantidad: inversion.cantidad };
+        }
+    });
+
+    // Convertir objeto a array
+    data = Object.values(data);
 
     const formatCurrency = (value) => {
         return new Intl.NumberFormat('es-ES', {
@@ -86,13 +82,13 @@ export default function InversionGraficoCard({ inversiones }) {
                                         <Cell key={`cell-${index}`} fill={CATEGORY_COLORS[entry.tipo_inversion]} name={entry.tipo_inversion} value={entry.cantidad} color={CATEGORY_COLORS[entry.tipo_inversion]} />
                                     ))}
                                 </Pie>
-                                <Tooltip content={<CustomTooltip />} />
+                                <Tooltip content={(props) => <CustomTooltip {...props} />} />
                                 <Legend
                                     verticalAlign="bottom"
                                     height={36}
-                                    formatter={(value) => (
+                                    formatter={(value, entry, index) => (
                                         <span className="text-sm text-neutral-400">
-                                            {value}
+                                            {data[index].tipo_inversion}
                                         </span>
                                     )}
                                 />

@@ -38,7 +38,10 @@ export default function Dashboard({setPage}) {
     useEffect(() => {
         fetch("http://localhost:3000/transacciones/inversiones")
             .then(response => response.json())
-            .then(data => setInversiones(data))
+            .then(data => {
+                setInversiones(data)
+                console.log(data);
+            })
             .catch(error => console.error(error))
     }, []);
 
@@ -54,7 +57,7 @@ export default function Dashboard({setPage}) {
     }, [transacciones]);
 
     const calculateGastosInversiones = useCallback(() => {
-        const gastos = transacciones.filter(t => t.tipo_id === 2 && t.es_inversion === 1).reduce((acc, t) => acc + t.cantidad, 0);
+        const gastos = transacciones.filter(t => t.es_inversion === 1).reduce((acc, t) => acc + t.cantidad, 0);
         setGastosInversiones(gastos);
     }, [transacciones]);
 
@@ -79,7 +82,6 @@ export default function Dashboard({setPage}) {
             categoria,
             cantidad
         }));
-
         setGastosPorCategoria(gastosArray);
     }, [transacciones, categorias]);
 
@@ -94,7 +96,7 @@ export default function Dashboard({setPage}) {
     }, [transacciones, categorias, calculateIngresos, calculateGastos, calculateGastosPorCategoria, calculateGastosInversiones]);
     return (
         <div className='flex flex-col gap-4'>
-            <BalanceCards ingresos={ingresos} gastos={(-gastos - gastosInversiones)} balance={ingresos - gastos + gastosInversiones} />
+            <BalanceCards ingresos={ingresos} gastos={(-gastos - gastosInversiones)} balance={ingresos - gastos - gastosInversiones} />
             <div className="flex gap-4">
                 <GastosGraficoCard gastos={gastosPorCategoria} />
                 <UltimasTransaccionesCard transacciones={transacciones} setPage={setPage} />
