@@ -68,19 +68,19 @@ db.exec(`
 
 `);
 
-// db.exec(`
-//     INSERT INTO categorias (name) VALUES ('Comida');
-//     INSERT INTO categorias (name) VALUES ('Transporte');
-//     INSERT INTO categorias (name) VALUES ('Compras');
-//     INSERT INTO categorias (name) VALUES ('Entretenimiento');
-//     INSERT INTO categorias (name) VALUES ('Salud');
-//     INSERT INTO categorias (name) VALUES ('Educacion');
-//     INSERT INTO categorias (name) VALUES ('Servicios');
-//     INSERT INTO categorias (name) VALUES ('Otros');
-//     INSERT INTO categorias (name) VALUES ('Inversiones');
-//     INSERT INTO tipos (name) VALUES ('Ingreso');
-//     INSERT INTO tipos (name) VALUES ('Gasto');
-//     INSERT INTO tipos (name) VALUES ('Inversion');
-// `);
+db.exec(`
+    INSERT INTO categorias (name) VALUES ('Comida');
+    INSERT INTO categorias (name) VALUES ('Transporte');
+    INSERT INTO categorias (name) VALUES ('Compras');
+    INSERT INTO categorias (name) VALUES ('Entretenimiento');
+    INSERT INTO categorias (name) VALUES ('Salud');
+    INSERT INTO categorias (name) VALUES ('Educacion');
+    INSERT INTO categorias (name) VALUES ('Servicios');
+    INSERT INTO categorias (name) VALUES ('Otros');
+    INSERT INTO categorias (name) VALUES ('Inversiones');
+    INSERT INTO tipos (name) VALUES ('Ingreso');
+    INSERT INTO tipos (name) VALUES ('Gasto');
+    INSERT INTO tipos (name) VALUES ('Inversion');
+`);
 
 export default db;
