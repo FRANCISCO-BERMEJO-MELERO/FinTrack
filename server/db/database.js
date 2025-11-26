@@ -53,6 +53,19 @@ db.exec(`
         FOREIGN KEY (tipo_id) REFERENCES tipos(id)
     );
 
+    CREATE TABLE IF NOT EXISTS objetivos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nombre TEXT NOT NULL,
+        descripcion TEXT,
+        cantidad_objetivo REAL NOT NULL,
+        cantidad_actual REAL DEFAULT 0,
+        fecha_limite TEXT,
+        categoria TEXT,
+        completado INTEGER DEFAULT 0,
+        createdAt TEXT DEFAULT (datetime('now')),
+        updatedAt TEXT DEFAULT (datetime('now'))
+    );
+
 `);
 
 // db.exec(`

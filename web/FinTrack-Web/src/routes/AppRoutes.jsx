@@ -5,6 +5,7 @@ import NuevaTransaccion from "../pages/NuevaTransaccion";
 import NuevosGastoFijo from "../pages/NuevosGastoFijo";
 import GastosFijos from "../pages/GastosFijos";
 import Historial from "../pages/Historial";
+import Objetivos from "../pages/Objetivos";
 
 export default function AppRoutes() {
     return (
@@ -14,6 +15,7 @@ export default function AppRoutes() {
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="nueva" element={<NuevaTransaccion />} />
                 <Route path="historial" element={<Historial />} />
+                <Route path="objetivos" element={<Objetivos />} />
                 <Route path="nuevos-gastos-fijos" element={<NuevosGastoFijo />} />
                 <Route path="gastos-fijos" element={<GastosFijos />} />
                 <Route path="*" element={<p>No hay datos</p>} />

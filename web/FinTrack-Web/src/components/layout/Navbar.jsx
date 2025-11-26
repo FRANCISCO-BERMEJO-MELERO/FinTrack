@@ -7,6 +7,7 @@ export default function Navbar() {
         { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
         { path: "/nueva", label: "Nueva", icon: Plus },
         { path: "/historial", label: "Historial", icon: History },
+        { path: "/objetivos", label: "Objetivos", icon: CreditCard },
         { path: "/nuevos-gastos-fijos", label: "Añadir Gasto Fijo", icon: Plus },
         { path: "/gastos-fijos", label: "Gastos Fijos", icon: Wallet },
     ];
