@@ -1,32 +1,34 @@
 {
-    "name": "fintrack-server",
-    "version": "1.0.0",
-    "description": "Backend API server for FinTrack - Personal Finance Management Application",
-    "type": "module",
-    "main": "server.js",
-    "scripts": {
-        "start": "node server.js",
-        "dev": "node --watch server.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [
-        "fintrack",
-        "finance",
-        "api",
-        "express",
-        "sqlite"
-    ],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "better-sqlite3": "^11.7.0",
-        "cors": "^2.8.5",
-        "express": "^4.21.2"
-    },
-    "devDependencies": {
-        "nodemon": "^3.1.7"
-    },
-    "engines": {
-        "node": ">=20.0.0"
-    }
+  "name": "fintrack-server",
+  "version": "1.0.0",
+  "description": "Backend API server for FinTrack - Personal Finance Management Application",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "postinstall": "node db/database.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fintrack",
+    "finance",
+    "api",
+    "express",
+    "sqlite"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^11.7.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
 }
