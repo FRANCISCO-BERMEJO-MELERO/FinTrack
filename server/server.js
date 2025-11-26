@@ -4,6 +4,7 @@ import transactionsRoutes from "./routes/transacciones.js";
 import typesRoutes from "./routes/tipos.js";
 import categoriesRoutes from "./routes/categorias.js";
 import gastosFijosRoutes from "./routes/gastosFijos.js";
+import exportRoutes from "./routes/export.js";
 
 const app = express();
 app.use(cors());
@@ -12,6 +13,7 @@ app.use("/transacciones", transactionsRoutes);
 app.use("/tipos", typesRoutes);
 app.use("/categorias", categoriesRoutes);
 app.use("/gastosFijos", gastosFijosRoutes);
+app.use("/export", exportRoutes);
 app.listen(3000, () => {
     console.log("Server running on port 3000");
 });

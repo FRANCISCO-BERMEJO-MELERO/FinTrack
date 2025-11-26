@@ -29,3 +29,9 @@ export const syncFixedExpenses = async () => {
     // This endpoint might not return JSON or might just trigger a sync
     return response;
 };
+
+export const exportAllData = async () => {
+    const response = await fetch(`${API_URL}/export`);
+    if (!response.ok) throw new Error("Error exporting data");
+    return response.json();
+};

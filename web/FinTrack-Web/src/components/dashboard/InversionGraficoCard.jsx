@@ -19,11 +19,18 @@ export default function InversionGraficoCard({ inversiones }) {
     let data = {};
 
     inversiones.forEach((inversion) => {
-        const { tipo_inversion } = inversion;
+        const { tipo_inversion, cantidad } = inversion;
         if (data[tipo_inversion]) {
-            data[tipo_inversion].cantidad += inversion.cantidad;
+            data[tipo_inversion].cantidad += cantidad;
+            data[tipo_inversion].value += cantidad;
         } else {
-            data[tipo_inversion] = { tipo_inversion, cantidad: inversion.cantidad };
+            data[tipo_inversion] = {
+                name: tipo_inversion,
+                tipo_inversion,
+                cantidad: cantidad,
+                value: cantidad,
+                color: CATEGORY_COLORS[tipo_inversion] || '#6B7280'
+            };
         }
     });
 
@@ -41,14 +48,18 @@ export default function InversionGraficoCard({ inversiones }) {
 
     const CustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
-            const { name, value, color } = payload[0].payload;
+            const data = payload[0].payload;
+            const tipoInversion = data.tipo_inversion || data.name;
+            const cantidad = data.cantidad || data.value;
+            const color = data.color || CATEGORY_COLORS[tipoInversion];
+
             return (
                 <div className="bg-neutral-800 p-3 rounded-lg shadow-lg border border-neutral-700">
                     <p className="text-sm text-neutral-100">
-                        {name}
+                        {tipoInversion}
                     </p>
                     <p className="text-sm" style={{ color }}>
-                        {formatCurrency(value)}
+                        {formatCurrency(cantidad)}
                     </p>
                 </div>
             );

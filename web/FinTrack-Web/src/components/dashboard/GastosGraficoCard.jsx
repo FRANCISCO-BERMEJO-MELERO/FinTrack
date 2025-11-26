@@ -14,22 +14,33 @@ const CATEGORY_COLORS = {
 };
 
 export default function GastosGraficoCard({ gastos }) {
-    // Convertir objeto a array si es necesario
+    // Convertir y mapear datos para asegurar que tienen todas las propiedades necesarias
     let data = [];
 
     if (Array.isArray(gastos)) {
-        // Si es un array
-        data = gastos.map((item, index) => {
-            if (typeof item === 'number') {
-                return { name: `Item ${index + 1}`, value: item };
+        // Si es un array, mapear para agregar propiedades necesarias
+        data = gastos.map((item) => {
+            if (typeof item === 'object' && item.categoria && item.cantidad !== undefined) {
+                return {
+                    name: item.categoria,
+                    categoria: item.categoria,
+                    cantidad: item.cantidad,
+                    value: item.cantidad,
+                    color: CATEGORY_COLORS[item.categoria] || '#6B7280'
+                };
+            } else if (typeof item === 'number') {
+                return { name: `Item`, value: item, cantidad: item, color: '#6B7280' };
             }
             return item;
         });
     } else if (gastos && typeof gastos === 'object') {
         // Si es un objeto, convertirlo a array de objetos
         data = Object.entries(gastos).map(([categoria, cantidad]) => ({
+            name: categoria,
             categoria,
-            cantidad
+            cantidad,
+            value: cantidad,
+            color: CATEGORY_COLORS[categoria] || '#6B7280'
         }));
     }
 
@@ -44,14 +55,18 @@ export default function GastosGraficoCard({ gastos }) {
 
     const CustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
-            const { name, value, color } = payload[0].payload;
+            const data = payload[0].payload;
+            const categoria = data.categoria || data.name;
+            const cantidad = data.cantidad || data.value;
+            const color = data.color || CATEGORY_COLORS[categoria];
+
             return (
                 <div className="bg-neutral-800 p-3 rounded-lg shadow-lg border border-neutral-700">
                     <p className="text-sm text-neutral-100">
-                        {name}
+                        {categoria}
                     </p>
                     <p className="text-sm" style={{ color }}>
-                        {formatCurrency(value)}
+                        {formatCurrency(cantidad)}
                     </p>
                 </div>
             );
