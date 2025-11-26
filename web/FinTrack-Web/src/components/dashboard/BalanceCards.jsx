@@ -2,8 +2,8 @@ import React from 'react'
 import { TrendingUp, TrendingDown, Wallet } from 'lucide-react';
 
 
-export default function IngresosGastos({ ingresos, gastos, balance}) {
-  
+export default function IngresosGastos({ ingresos, gastos, balance }) {
+
   const cards = [
     {
       titulo: 'Ingresos',
@@ -24,27 +24,27 @@ export default function IngresosGastos({ ingresos, gastos, balance}) {
     {
       titulo: 'Balance',
       cantidad: balance,
-      color: balance >= 0 ? 'text-[#2563EB]' : 'text-[#DC2626]',
-      bgColor: balance >= 0 ? 'bg-blue-50 dark:bg-blue-950/20' : 'bg-red-50 dark:bg-red-950/20',
+      color: balance >= 0 ? 'text-blue-400' : 'text-red-400',
+      bgColor: balance >= 0 ? 'bg-blue-500/10' : 'bg-red-500/10',
       icon: Wallet,
-      iconColor: balance >= 0 ? 'text-[#2563EB]' : 'text-[#DC2626]',
+      iconColor: balance >= 0 ? 'text-blue-400' : 'text-red-400',
     },
   ];
 
-  
   return (
     <div className="flex gap-4 ">
       {
         cards.map((card, index) => (
-          <div key={index} className={`flex flex-col gap-2 border border-neutral-500 rounded-2xl p-4 w-full text-neutral-400`}>
+          <div key={index} className={`flex flex-col gap-2 glass-panel p-4 w-full text-slate-400 hover:scale-105 transition-transform duration-300`}>
             <div className='flex justify-between items-center'>
-              <h2>{card.titulo}</h2>
+              <h2 className="font-medium text-slate-300">{card.titulo}</h2>
               {
-                card.titulo === 'Balance' ? <card.icon className='text-blue-500 bg-blue-500/10 p-1 rounded-full' /> : card.cantidad < 0 ? <card.icon className='text-red-500 bg-red-500/10 p-1 rounded-full' /> : <card.icon className='text-green-500 bg-green-500/10 p-1 rounded-full' />
+                card.titulo === 'Balance' ? <card.icon className='text-blue-400 bg-blue-500/10 p-1 rounded-full h-8 w-8' /> : card.cantidad < 0 ? <card.icon className='text-red-400 bg-red-500/10 p-1 rounded-full h-8 w-8' /> : <card.icon className='text-green-400 bg-green-500/10 p-1 rounded-full h-8 w-8' />
               }
             </div>
-            <span   
-            style={{color: card.titulo === 'Balance' ? 'dodgerblue' : card.cantidad < 0 ? 'red' : 'green'}}>
+            <span
+              className="text-2xl font-bold"
+              style={{ color: card.titulo === 'Balance' ? '#60a5fa' : card.cantidad < 0 ? '#f87171' : '#4ade80' }}>
               {typeof card.cantidad === 'number' ? card.cantidad.toFixed(2) + '€' : '--'}
             </span>
           </div>
@@ -53,16 +53,3 @@ export default function IngresosGastos({ ingresos, gastos, balance}) {
     </div>
   )
 }
-
-{/* <div className='flex flex-col gap-2 border border-neutral-500 rounded-2xl p-4 w-full text-gray-500'>
-  <div className='flex justify-between items-center'>
-    <h2>{titulo}</h2>
-    {
-      cantidad < 0 ? <TrendingDown className='text-red-500 bg-red-500/10 p-1 rounded-full' /> : <TrendingUp className='text-green-500 bg-green-500/10 p-1 rounded-full' />
-    }
-  </div>
-  <span   
-  style={{color: cantidad < 0 ? 'red' : 'green'}}>
-    {cantidad}€
-  </span>
-</div> */}

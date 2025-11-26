@@ -57,10 +57,10 @@ export default function InversionGraficoCard({ inversiones }) {
     }
 
     return (
-        <div className="flex flex-col gap-4 border border-neutral-500 rounded-2xl w-full">
-            <div className='flex items-center gap-2 p-4'>
-                <PieChartIcon className="h-5 w-5 text-neutral-600" />
-                <h2 className="text-sm text-neutral-400" >
+        <div className="flex flex-col gap-4 glass-panel w-full">
+            <div className='flex items-center gap-2 p-4 border-b border-white/5'>
+                <PieChartIcon className="h-5 w-5 text-slate-400" />
+                <h2 className="text-sm font-medium text-slate-300" >
                     Inversiones
                 </h2>
             </div>
@@ -73,13 +73,13 @@ export default function InversionGraficoCard({ inversiones }) {
                                     data={data}
                                     cx="50%"
                                     cy="50%"
-                                    labelLine={false}
-                                    outerRadius="80%"
-                                    fill="#8884d8"
+                                    innerRadius={60}
+                                    outerRadius={80}
+                                    paddingAngle={5}
                                     dataKey="cantidad"
                                 >
                                     {data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={CATEGORY_COLORS[entry.tipo_inversion]} name={entry.tipo_inversion} value={entry.cantidad} color={CATEGORY_COLORS[entry.tipo_inversion]} />
+                                        <Cell key={`cell-${index}`} fill={CATEGORY_COLORS[entry.tipo_inversion]} stroke="rgba(0,0,0,0)" />
                                     ))}
                                 </Pie>
                                 <Tooltip content={(props) => <CustomTooltip {...props} />} />
@@ -87,7 +87,7 @@ export default function InversionGraficoCard({ inversiones }) {
                                     verticalAlign="bottom"
                                     height={36}
                                     formatter={(value, entry, index) => (
-                                        <span className="text-sm text-neutral-400">
+                                        <span className="text-sm text-slate-400">
                                             {data[index].tipo_inversion}
                                         </span>
                                     )}
@@ -98,8 +98,8 @@ export default function InversionGraficoCard({ inversiones }) {
                 ) : (
                     <div className="h-[300px] flex items-center justify-center">
                         <div className="text-center">
-                            <PieChartIcon className="h-12 w-12 text-neutral-600 mx-auto mb-2" />
-                            <p className="text-sm text-neutral-400">
+                            <PieChartIcon className="h-12 w-12 text-slate-600 mx-auto mb-2" />
+                            <p className="text-sm text-slate-400">
                                 No hay inversiones registrados
                             </p>
                         </div>

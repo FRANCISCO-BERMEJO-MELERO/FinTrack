@@ -34,29 +34,30 @@ export default function DistribuciónInversionCard({ inversiones }) {
     }, {});
 
     return (
-        <div className="flex flex-col gap-4 border border-neutral-500 rounded-2xl w-full p-4">
-            <h2 className="text-sm text-neutral-400 mb-4 flex items-center gap-2">
-                <AlignHorizontalDistributeCenter className="h-5 w-5 text-neutral-600" />
+        <div className="flex flex-col gap-4 glass-panel w-full p-4">
+            <h2 className="text-sm font-medium text-slate-300 mb-4 flex items-center gap-2 border-b border-white/5 pb-2">
+                <AlignHorizontalDistributeCenter className="h-5 w-5 text-slate-400" />
                 Distribución de inversiones
             </h2>
-            <div className="gap-4 flex flex-col h-[350px] overflow-auto">
+            <div className="gap-4 flex flex-col h-[350px] overflow-auto custom-scrollbar pr-2">
                 {
                     CATEGORIAS.map((categoria) => {
                         const tipoInversiones = groupedInversiones[categoria] || {};
                         return (
-                            <div key={categoria} className="p-4 border border-neutral-500 rounded-lg ">
-                                <h3 className="text-sm text-neutral-400 mb-2 w-full flex flex-col ">{categoria}</h3>
+                            <div key={categoria} className="p-4 bg-white/5 rounded-xl border border-white/5">
+                                <h3 className="text-sm font-medium text-slate-300 mb-3 w-full flex flex-col ">{categoria}</h3>
                                 {
                                     Object.entries(tipoInversiones).map(([tipoInversion, inversiones]) => (
-                                        <div key={tipoInversion} className="mb-4 w-full">
+                                        <div key={tipoInversion} className="mb-2 w-full last:mb-0">
                                             <div className="flex flex-col gap-2">
                                                 {
                                                     Object.entries(inversiones).map(([activo, cantidad]) => (
-                                                        <div key={activo} className="flex items-center gap-2">
-                                                            <div className="h-2 w-2 rounded-full" style={{ backgroundColor: COLORS[categoria] }}></div>
-                                                            <p>
-                                                                {activo}: {cantidad} €
-                                                            </p>
+                                                        <div key={activo} className="flex items-center justify-between text-sm">
+                                                            <div className="flex items-center gap-2">
+                                                                <div className="h-2 w-2 rounded-full" style={{ backgroundColor: COLORS[categoria] }}></div>
+                                                                <span className="text-slate-400">{activo}</span>
+                                                            </div>
+                                                            <span className="font-medium text-slate-200">{cantidad} €</span>
                                                         </div>
                                                     ))
                                                 }

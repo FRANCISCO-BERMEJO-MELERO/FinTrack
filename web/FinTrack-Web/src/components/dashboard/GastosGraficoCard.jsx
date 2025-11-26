@@ -60,11 +60,11 @@ export default function GastosGraficoCard({ gastos }) {
     }
 
     return (
-        <div className="flex flex-col gap-4 border border-neutral-500 rounded-2xl w-full">
-            <div className='flex items-center gap-2 p-4'>
-                <PieChartIcon className="h-5 w-5 text-neutral-600" />
-                <h2 className="text-sm text-neutral-400" >
-                    Gastos
+        <div className="flex flex-col gap-4 glass-panel w-full">
+            <div className='flex items-center gap-2 p-4 border-b border-white/5'>
+                <PieChartIcon className="h-5 w-5 text-slate-400" />
+                <h2 className="text-sm font-medium text-slate-300" >
+                    Gastos por Categoría
                 </h2>
             </div>
             {
@@ -76,13 +76,13 @@ export default function GastosGraficoCard({ gastos }) {
                                     data={data}
                                     cx="50%"
                                     cy="50%"
-                                    labelLine={false}
-                                    outerRadius="80%"
-                                    fill="#8884d8"
+                                    innerRadius={60}
+                                    outerRadius={80}
+                                    paddingAngle={5}
                                     dataKey="cantidad"
                                 >
                                     {data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={CATEGORY_COLORS[entry.categoria]} name={entry.categoria} value={entry.cantidad} color={CATEGORY_COLORS[entry.categoria]} />
+                                        <Cell key={`cell-${index}`} fill={CATEGORY_COLORS[entry.categoria]} stroke="rgba(0,0,0,0)" />
                                     ))}
                                 </Pie>
                                 <Tooltip content={<CustomTooltip />} />
@@ -90,7 +90,7 @@ export default function GastosGraficoCard({ gastos }) {
                                     verticalAlign="bottom"
                                     height={36}
                                     formatter={(value, entry, index) => (
-                                        <span className="text-sm text-neutral-400">
+                                        <span className="text-sm text-slate-400">
                                             {data[index].categoria}
                                         </span>
                                     )}
@@ -101,8 +101,8 @@ export default function GastosGraficoCard({ gastos }) {
                 ) : (
                     <div className="h-[300px] flex items-center justify-center">
                         <div className="text-center">
-                            <PieChartIcon className="h-12 w-12 text-neutral-600 mx-auto mb-2" />
-                            <p className="text-sm text-neutral-400">
+                            <PieChartIcon className="h-12 w-12 text-slate-600 mx-auto mb-2" />
+                            <p className="text-sm text-slate-400">
                                 No hay gastos registrados
                             </p>
                         </div>

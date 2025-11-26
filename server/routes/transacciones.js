@@ -29,21 +29,35 @@ router.get("/inversiones", (req, res) => {
 });
 
 
-
-router.get("/:id", (req, res) => {
+router.get("/balance", (req, res) => {
     try {
-        const { id } = req.params;
-        const transaction = db
-            .prepare("SELECT * FROM transacciones WHERE id = ?")
-            .get(id);
-        if (!transaction) {
-            return res.status(404).json({ error: "Transacción no encontrada" });
-        }
-        res.json(transaction);
+        const total = db
+            .prepare(
+                "SELECT SUM( CASE WHEN tipo_id = 1 THEN cantidad WHEN tipo_id IN (2, 3) THEN -cantidad ELSE 0 END) AS total FROM transacciones;"
+            )
+            .get();
+        res.json(total || { total: 0 });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
+
+router.get("/transacciones_actuales", (req, res) => {
+    try {
+        const año = new Date().getFullYear();
+        const mes = new Date().getMonth() + 1 ;
+        const total = db
+            .prepare(
+                "SELECT * FROM transacciones WHERE strftime('%Y', fecha) = ? AND strftime('%m', fecha) = ?"
+            )
+            .all(año.toString(), mes.toString());
+        res.json(total || { total: 0 });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 router.get("/ingreso_actual", (req, res) => {
     try {
@@ -61,12 +75,13 @@ router.get("/ingreso_actual", (req, res) => {
 
 router.get("/gasto_actual", (req, res) => {
     try {
-        const date = new Date().toISOString().split("T")[0];
+        const año = new Date().getFullYear();
+        const mes = new Date().getMonth() + 1;
         const total = db
             .prepare(
-                "SELECT SUM(cantidad) as total FROM transacciones WHERE tipo_id = 2 AND fecha = ?"
+                "SELECT SUM(cantidad) as total FROM transacciones WHERE (tipo_id = 2 OR tipo_id = 3) AND strftime('%Y', fecha) = ? AND strftime('%m', fecha) = ?"
             )
-            .get(date);
+            .all(año.toString(), mes.toString());
         res.json(total || { total: 0 });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -242,6 +257,22 @@ router.delete("/", (req, res) => {
         if (!id) return res.status(400).json({ error: "El campo 'id' es obligatorio" });
         db.prepare("DELETE FROM transacciones WHERE id = ?").run(id);
         res.json({ message: "🗑️ Transacción eliminada", id });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
+router.get("/:id", (req, res) => {
+    try {
+        const { id } = req.params;
+        const transaction = db
+            .prepare("SELECT * FROM transacciones WHERE id = ?")
+            .get(id);
+        if (!transaction) {
+            return res.status(404).json({ error: "Transacción no encontrada" });
+        }
+        res.json(transaction);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
