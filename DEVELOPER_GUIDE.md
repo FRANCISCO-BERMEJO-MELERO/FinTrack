@@ -29,6 +29,7 @@
    
    # Install backend dependencies
    cd ../../server
+   mkdir data
    npm install
    ```
 

@@ -70,6 +70,7 @@ FinTrack/
 3. **Install backend dependencies**
    ```bash
    cd ../../server
+   mkdir data
    npm install
    ```
 

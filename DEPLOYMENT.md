@@ -40,11 +40,11 @@ sudo npm install -g pm2
 git clone <repository-url>
 cd FinTrack/server
 
-# Install dependencies
-npm install --production
-
 # Create data directory
 mkdir -p data
+
+# Install dependencies
+npm install --production
 ```
 
 #### 3. Configure Environment
