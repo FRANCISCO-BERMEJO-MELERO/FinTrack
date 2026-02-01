@@ -68,19 +68,27 @@ db.exec(`
 
 `);
 
-db.exec(`
-    INSERT INTO categorias (name) VALUES ('Comida');
-    INSERT INTO categorias (name) VALUES ('Transporte');
-    INSERT INTO categorias (name) VALUES ('Compras');
-    INSERT INTO categorias (name) VALUES ('Entretenimiento');
-    INSERT INTO categorias (name) VALUES ('Salud');
-    INSERT INTO categorias (name) VALUES ('Educacion');
-    INSERT INTO categorias (name) VALUES ('Servicios');
-    INSERT INTO categorias (name) VALUES ('Otros');
-    INSERT INTO categorias (name) VALUES ('Inversiones');
-    INSERT INTO tipos (name) VALUES ('Ingreso');
-    INSERT INTO tipos (name) VALUES ('Gasto');
-    INSERT INTO tipos (name) VALUES ('Inversion');
-`);
+const seedData = () => {
+    const rowCountCategorias = db.prepare("SELECT COUNT(*) as count FROM categorias").get();
+    if (rowCountCategorias.count === 0) {
+        console.log("Seeding categories...");
+        const insertCategoria = db.prepare("INSERT INTO categorias (name) VALUES (?)");
+        const categories = [
+            "Comida", "Transporte", "Compras", "Entretenimiento",
+            "Salud", "Educacion", "Servicios", "Otros", "Inversiones"
+        ];
+        categories.forEach(name => insertCategoria.run(name));
+    }
+
+    const rowCountTipos = db.prepare("SELECT COUNT(*) as count FROM tipos").get();
+    if (rowCountTipos.count === 0) {
+        console.log("Seeding types...");
+        const insertTipo = db.prepare("INSERT INTO tipos (name) VALUES (?)");
+        const types = ["Ingreso", "Gasto", "Inversion"];
+        types.forEach(name => insertTipo.run(name));
+    }
+};
+
+seedData();
 
 export default db;

@@ -46,12 +46,12 @@ router.get("/balance", (req, res) => {
 router.get("/transacciones_actuales", (req, res) => {
     try {
         const año = new Date().getFullYear();
-        const mes = new Date().getMonth() + 1 ;
+        const mes = new Date().getMonth() + 1;
         const total = db
             .prepare(
                 "SELECT * FROM transacciones WHERE strftime('%Y', fecha) = ? AND strftime('%m', fecha) = ?"
             )
-            .all(año.toString(), mes.toString());
+            .all(año.toString(), mes.toString().padStart(2, '0'));
         res.json(total || { total: 0 });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -81,7 +81,7 @@ router.get("/gasto_actual", (req, res) => {
             .prepare(
                 "SELECT SUM(cantidad) as total FROM transacciones WHERE (tipo_id = 2 OR tipo_id = 3) AND strftime('%Y', fecha) = ? AND strftime('%m', fecha) = ?"
             )
-            .all(año.toString(), mes.toString());
+            .all(año.toString(), mes.toString().padStart(2, '0'));
         res.json(total || { total: 0 });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -90,12 +90,13 @@ router.get("/gasto_actual", (req, res) => {
 
 router.get("/inversion_actual", (req, res) => {
     try {
-        const date = new Date().toISOString().split("T")[0];
+        const año = new Date().getFullYear();
+        const mes = new Date().getMonth() + 1;
         const total = db
             .prepare(
-                "SELECT SUM(cantidad) as total FROM transacciones WHERE tipo_id = 2 AND fecha = ?"
+                "SELECT SUM(cantidad) as total FROM transacciones WHERE tipo_id = 3 AND strftime('%Y', fecha) = ? AND strftime('%m', fecha) = ?"
             )
-            .get(date);
+            .get(año.toString(), mes.toString().padStart(2, '0'));
         res.json(total || { total: 0 });
     } catch (error) {
         res.status(500).json({ error: error.message });

@@ -5,7 +5,7 @@ import { PieChart as PieChartIcon } from 'lucide-react';
 const CATEGORY_COLORS = {
     'Criptomonedas': '#EF4444',
     'Bonos': '#F59E0B',
-    'Fundos': '#6366F1',
+    'Fondos': '#6366F1',
     'Propiedades': '#10B981',
     'Acciones': '#3B82F6',
     'ETF': '#EC4899',

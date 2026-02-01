@@ -60,6 +60,19 @@ export default function NuevaTransaccion() {
             .then((data) => {
                 console.log("✅ Guardado:", data);
                 alert(isInvestment ? "Inversión registrada" : "Transacción registrada");
+
+                // Clear form
+                setAmount("");
+                setDescription("");
+                setDate("");
+                setSelectedCategory("");
+                if (isInvestment) {
+                    setTipoInversion("");
+                    setPlataforma("");
+                    setActivo("");
+                    setUnidades("");
+                    setValorUnitario("");
+                }
             })
             .catch((err) => console.error("❌ Error:", err));
     };
@@ -94,14 +107,14 @@ export default function NuevaTransaccion() {
                             <label
                                 htmlFor="income"
                                 className={`flex items-center justify-center gap-2 p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedType === 1 && !isInvestment
-                                        ? "border-green-500 bg-green-500/10"
-                                        : "border-neutral-500 hover:border-neutral-400"
+                                    ? "border-green-500 bg-green-500/10"
+                                    : "border-neutral-500 hover:border-neutral-400"
                                     }`}
                             >
                                 <TrendingUp
                                     className={`h-5 w-5 ${selectedType === 1 && !isInvestment
-                                            ? "text-green-500"
-                                            : "text-neutral-400"
+                                        ? "text-green-500"
+                                        : "text-neutral-400"
                                         }`}
                                 />
                                 <span
@@ -133,14 +146,14 @@ export default function NuevaTransaccion() {
                             <label
                                 htmlFor="expense"
                                 className={`flex items-center justify-center gap-2 p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedType === 2 && !isInvestment
-                                        ? "border-red-500 bg-red-500/10"
-                                        : "border-neutral-500 hover:border-neutral-400"
+                                    ? "border-red-500 bg-red-500/10"
+                                    : "border-neutral-500 hover:border-neutral-400"
                                     }`}
                             >
                                 <TrendingDown
                                     className={`h-5 w-5 ${selectedType === 2 && !isInvestment
-                                            ? "text-red-500"
-                                            : "text-neutral-400"
+                                        ? "text-red-500"
+                                        : "text-neutral-400"
                                         }`}
                                 />
                                 <span
@@ -172,8 +185,8 @@ export default function NuevaTransaccion() {
                             <label
                                 htmlFor="investment"
                                 className={`flex items-center justify-center gap-2 p-4 rounded-xl border-2 cursor-pointer transition-all ${isInvestment
-                                        ? "border-blue-500 bg-blue-500/10"
-                                        : "border-neutral-500 hover:border-neutral-400"
+                                    ? "border-blue-500 bg-blue-500/10"
+                                    : "border-neutral-500 hover:border-neutral-400"
                                     }`}
                             >
                                 <LineChart
@@ -203,7 +216,8 @@ export default function NuevaTransaccion() {
                         placeholder="0.00"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
-                        className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:outline-none focus:border-neutral-400 transition-colors"
+                        required
+                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:outline-none focus:border-neutral-400 transition-colors"
                     />
                 </div>
 
@@ -216,7 +230,8 @@ export default function NuevaTransaccion() {
                         id="category"
                         value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:outline-none focus:border-neutral-400 transition-colors cursor-pointer"
+                        required
+                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:outline-none focus:border-neutral-400 transition-colors cursor-pointer"
                     >
                         <option value="">Selecciona una categoría</option>
                         {categorias.map((cat) => (
@@ -237,7 +252,8 @@ export default function NuevaTransaccion() {
                         type="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
-                        className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:outline-none focus:border-neutral-400 transition-colors cursor-pointer"
+                        required
+                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:outline-none focus:border-neutral-400 transition-colors cursor-pointer"
                     />
                 </div>
 
@@ -255,12 +271,12 @@ export default function NuevaTransaccion() {
                                     id="tipoInversion"
                                     value={tipoInversion}
                                     onChange={(e) => setTipoInversion(e.target.value)}
-                                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:outline-none focus:border-neutral-400 transition-colors cursor-pointer"
+                                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:outline-none focus:border-neutral-400 transition-colors cursor-pointer"
                                 >
                                     <option value="">Selecciona un tipo</option>
                                     <option value="Criptomonedas">Criptomonedas</option>
                                     <option value="Bonos">Bonos</option>
-                                    <option value="Fundos">Fundos</option>
+                                    <option value="Fondos">Fondos</option>
                                     <option value="Propiedades">Propiedades</option>
                                     <option value="Acciones">Acciones</option>
                                     <option value="ETF">ETF</option>
@@ -275,7 +291,7 @@ export default function NuevaTransaccion() {
                                     placeholder="Binance, Degiro..."
                                     value={plataforma}
                                     onChange={(e) => setPlataforma(e.target.value)}
-                                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:border-neutral-400"
+                                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:border-neutral-400"
                                 />
                             </div>
 
@@ -286,7 +302,7 @@ export default function NuevaTransaccion() {
                                     placeholder="BTC, AAPL, SP500..."
                                     value={activo}
                                     onChange={(e) => setActivo(e.target.value)}
-                                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:border-neutral-400"
+                                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:border-neutral-400"
                                 />
                             </div>
 
@@ -298,7 +314,7 @@ export default function NuevaTransaccion() {
                                     placeholder="0.00"
                                     value={unidades}
                                     onChange={(e) => setUnidades(e.target.value)}
-                                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:border-neutral-400"
+                                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:border-neutral-400"
                                 />
                             </div>
 
@@ -312,7 +328,7 @@ export default function NuevaTransaccion() {
                                     placeholder="Precio por unidad"
                                     value={valorUnitario}
                                     onChange={(e) => setValorUnitario(e.target.value)}
-                                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:border-neutral-400"
+                                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:border-neutral-400"
                                 />
                             </div>
 
@@ -323,7 +339,7 @@ export default function NuevaTransaccion() {
                                     placeholder="USD, EUR..."
                                     value={moneda}
                                     onChange={(e) => setMoneda(e.target.value)}
-                                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:border-neutral-400"
+                                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:border-neutral-400"
                                 />
                             </div>
                         </div>
@@ -344,7 +360,7 @@ export default function NuevaTransaccion() {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         rows={3}
-                        className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:border-neutral-400 resize-none"
+                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:border-neutral-400 resize-none"
                     />
                 </div>
 
@@ -353,12 +369,12 @@ export default function NuevaTransaccion() {
                     <button
                         type="submit"
                         className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${isInvestment
-                                ? "bg-blue-500 hover:bg-blue-600 text-white"
-                                : selectedType === 1
-                                    ? "bg-green-500 hover:bg-green-600 text-white"
-                                    : selectedType === 2
-                                        ? "bg-red-500 hover:bg-red-600 text-white"
-                                        : "bg-neutral-700 hover:bg-neutral-600 text-white"
+                            ? "bg-blue-500 hover:bg-blue-600 text-white"
+                            : selectedType === 1
+                                ? "bg-green-500 hover:bg-green-600 text-white"
+                                : selectedType === 2
+                                    ? "bg-red-500 hover:bg-red-600 text-white"
+                                    : "bg-neutral-700 hover:bg-neutral-600 text-white"
                             }`}
                     >
                         <Save className="h-4 w-4" />

@@ -48,3 +48,13 @@
 .nav-link-active {
   @apply text-white bg-white/10 px-3 py-1 rounded-lg;
 }
+
+/* Select and Option Styling */
+select option {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+select {
+  color-scheme: dark;
+}

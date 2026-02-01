@@ -93,7 +93,7 @@ export default function NuevoGastoFijo() {
                         id="categoria"
                         value={categoria}
                         onChange={(e) => setCategoria(e.target.value)}
-                        className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:border-neutral-400 cursor-pointer"
+                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:border-neutral-400 cursor-pointer"
                     >
                         <option value="">Selecciona una categoría</option>
                         {categorias.map((cat) => (
@@ -123,7 +123,7 @@ export default function NuevoGastoFijo() {
                         id="frecuencia"
                         value={frecuencia}
                         onChange={(e) => setFrecuencia(e.target.value)}
-                        className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 focus:border-neutral-400 cursor-pointer"
+                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 focus:border-neutral-400 cursor-pointer"
                     >
                         <option value="mensual">Mensual</option>
                         <option value="trimestral">Trimestral</option>
@@ -191,7 +191,7 @@ function CampoTexto({ id, label, type = "text", placeholder, value, onChange, re
                     placeholder={placeholder}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
-                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 placeholder:text-neutral-500 focus:border-neutral-400 resize-none"
+                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 placeholder:text-neutral-500 focus:border-neutral-400 resize-none"
                 />
             ) : (
                 <input
@@ -200,7 +200,7 @@ function CampoTexto({ id, label, type = "text", placeholder, value, onChange, re
                     placeholder={placeholder}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
-                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-500 rounded-xl text-neutral-200 placeholder:text-neutral-500 focus:border-neutral-400"
+                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-neutral-200 placeholder:text-neutral-500 focus:border-neutral-400"
                 />
             )}
         </div>

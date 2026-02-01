@@ -30,6 +30,8 @@ export default function HistorialCard({ transacciones, categorias }) {
                       {
                         transaccion.tipo_id === 1 ? (
                           <TrendingUp className="h-8 w-8 text-green-400 bg-green-500/10 p-1.5 rounded-full" />
+                        ) : transaccion.tipo_id === 3 ? (
+                          <TrendingDown className="h-8 w-8 text-blue-400 bg-blue-500/10 p-1.5 rounded-full" />
                         ) : (
                           <TrendingDown className="h-8 w-8 text-red-400 bg-red-500/10 p-1.5 rounded-full" />
                         )
@@ -42,6 +44,8 @@ export default function HistorialCard({ transacciones, categorias }) {
                     {
                       transaccion.tipo_id === 1 ? (
                         <span className="font-medium text-green-400">+ {transaccion.cantidad}€</span>
+                      ) : transaccion.tipo_id === 3 ? (
+                        <span className="font-medium text-blue-400">- {transaccion.cantidad}€</span>
                       ) : (
                         <span className="font-medium text-red-400">- {transaccion.cantidad}€</span>
                       )
